@@ -91,6 +91,10 @@ module.exports = function() {
     include: ['glimmer-runtime/**/*']
   });
 
+  var glimmerUtils = find(libTree, {
+    include: ['glimmer-util/**/*']
+  });
+
   var glimmerCompiler = merge([
     find(libTree, {
       include: [
@@ -167,6 +171,16 @@ module.exports = function() {
     }
   });
 
+  glimmerUtils = concat(glimmerUtils, {
+    inputFiles: ['**/*.js'],
+    outputFile: '/amd/glimmer-utils.amd.js',
+    sourceMapConfig: {
+      enabled: true,
+      cache: null,
+      sourceRoot: '/'
+    }
+  });
+
   glimmerDemos = concat(glimmerDemos, {
     inputFiles: ['**/*.js'],
     outputFile: '/amd/glimmer-demos.amd.js',
@@ -190,6 +204,7 @@ module.exports = function() {
   var finalTrees = [
     testHarness,
     demos,
+    glimmerUtils,
     glimmerCommon,
     glimmerCompiler,
     glimmerRuntime,

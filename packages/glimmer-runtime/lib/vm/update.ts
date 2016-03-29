@@ -312,6 +312,10 @@ export class ListBlockOpcode extends BlockOpcode {
   }
 }
 
+const NO_HANDLER = {
+  handleException() {}
+};
+
 export class UpdatingVMFrame {
   private vm: UpdatingVM;
   private ops: UpdatingOpSeq;
@@ -322,7 +326,7 @@ export class UpdatingVMFrame {
     this.vm = vm;
     this.ops = ops;
     this.current = ops.head();
-    this.exceptionHandler = handler;
+    this.exceptionHandler = handler || NO_HANDLER;
   }
 
   nextStatement(): UpdatingOpcode {
